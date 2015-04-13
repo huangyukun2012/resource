@@ -48,7 +48,7 @@ func Init(){
 	if err != nil{
 		errPrintln("func Init:", err)
 	}
-	errdocker := startDocker()
+	errdocker := util.StartDocker(ClientConfig.Docker.Bridge)
 	if errdocker != nil{
 		util.PrintErr(errdocker.Error())	
 	}

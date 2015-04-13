@@ -107,34 +107,6 @@ func delDevHandler(w http.ResponseWriter, r *http.Request){
 	return 
 }
 
-func startDocker()error{
-
-	fmt.Println("Make sure:you have configed the net interface bridge br0, and we will start docker using this br0....")
-	_, err0 := exec.LookPath("docker")	
-	if err0 != nil{
-		errors.New(`You have not install 'docker' in your computer! Please install it first.`)
-	}
-
-	//test if docker has started yet
-	isDockerStartedCmd := exec.Command("pgrep", "docker")
-	isDockerStarted,_ := isDockerStartedCmd.Output()
-
-	if len(isDockerStarted)>0{
-		//ddocker is stated yet.
-			fmt.Println("Docker deamon is running.Please check it is running with br0.")		
-			return nil
-	}
-
-	//docker is not stated, so we will start it
-	cmd := exec.Command("docker", "-b", "br0",  "-d" , "-H", "unix:////var/run/docker.sock" , "-H" ,"0.0.0.0:4243")
-	err := cmd.Start()
-	var res error
-	if err != nil{
-		res= errors.New("Fail: can not start docker,"+err.Error())	
-	}
-	fmt.Println("docker is running with command", `docker -b=br0 -d -H unit///var/run/docker.sock -H 0.0.0.0:4243`)
-	return res
-}
 
 func ShutDownHandler(w http.ResponseWriter, r *http.Request){
 	log.Fatal("The client will be shut down!")
