@@ -1,7 +1,6 @@
 The dir client will be compiled into a execute file `resource`.
 
 It will run as an deamon,which will serve as a http server.This process will provide functions:
-#1. test
 0)Listen on one port to act as a http server.
 1)set ip to container on This host.
 2)Update etcd server.
